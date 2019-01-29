@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">iBudget</string>
+    <string name="balance_Text">0</string>
+    <string name="incomeBtn_Text">Income \n 0</string>
+    <string name="expenditureBtn_Text">Expenditure \n0</string>
+    <string name="balanceStatic_Text">Balance</string>
+    <string name="newTransactionBtn_Text">New Transaction</string>
+    <string name="transactionTotal_StaticText">Transaction Total</string>
+    <string name="transactionTotal_DynamicText">0</string>
+    <string name="transactionDate_DatePicker">Set Transaction Date</string>
+    <string name="transactionFrequency_StaticText">Choose Transaction Frequency</string>
+    <string name="onceRadioButton_Text">Once</string>
+    <string name="dailyRadioButton_Text">Daily</string>
+    <string name="weeklyRadioButton_Text">Weekly</string>
+    <string name="monthlyRadioButton_Text">Monthly</string>
+    <string name="addTransactionItemButton_Text">Add Item to Transaction</string>
+    <string name="completeTransactionButton_Text">Complete Transaction</string>
+    <string name="itemColumnHeader_ItemTable">Item</string>
+    <string name="quantityColumnHeader_ItemTable">Quantity</string>
+    <string name="valueColumnHeader_ItemTable">Value (£)</string>
+</resources>
