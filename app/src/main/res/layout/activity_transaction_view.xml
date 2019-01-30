@@ -23,7 +23,8 @@
             android:layout_width="125dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/incomeView_checkBox" />
+            android:text="@string/incomeView_checkBox"
+            android:onClick="onClickCheckBox"/>
 
         <Space
             android:layout_width="32dp"
@@ -35,7 +36,9 @@
             android:layout_width="125dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/expenditureView_checkBox" />
+            android:text="@string/expenditureView_checkBox"
+            android:onClick="onClickCheckBox"
+            />
     </LinearLayout>
 
     <Button

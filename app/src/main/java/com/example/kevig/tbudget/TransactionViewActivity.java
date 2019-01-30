@@ -9,6 +9,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
+
 import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,19 +111,40 @@ public class TransactionViewActivity extends AppCompatActivity {
         this.transactionsAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Determine view state based on income and expenditure check boxes
+     * @return Integer representing one of the four possible states
+     */
     private int getSelectionState() {
-        // 0 None selected
-        // 1 Income selected
-        // 2 Expenditure selected
-        // 3 Both selected
-        return 3;
+        int value;
+
+        if(this.incomeChecked && this.expeditureChecked) { value = 3; }
+        else if(!this.incomeChecked && this.expeditureChecked) { value = 2; }
+        else if(this.incomeChecked) { value = 1; }
+        else { value = 0; }
+
+        return value;
     }
 
-    private void incomeCheckedEventListener() {
 
+    /**
+     * Called on an onClick check box event, determines view and sets related boolean to match
+     * Calls applyFilter to trigger a display update
+     * @param view Checkbox object triggering the onClick call
+     */
+    protected void onClickCheckBox(View view) {
+        boolean isChecked = ((CheckBox) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.incomeView_checkBox:
+                this.incomeChecked = isChecked;
+                break;
+
+            case R.id.expenditureView_checkBox:
+                this.expeditureChecked = isChecked;
+                break;
+        }
+        this.applyFilter();
     }
 
-    private void expeditureCheckedEventListener() {
-
-    }
 }
