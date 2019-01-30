@@ -12,11 +12,11 @@ import java.util.Locale;
 
 class ComponentDatePicker {
 
-    private Context parent;
+    private Context context;
     private TextView textView;
 
-    ComponentDatePicker(Context context, TextView v) {
-        this.parent = context;
+    ComponentDatePicker(Context c, TextView v) {
+        this.context = c;
         this.textView = v;
 
         Calendar calendar = Calendar.getInstance();
@@ -57,7 +57,7 @@ class ComponentDatePicker {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(parent, dateListener,
+                new DatePickerDialog(context, dateListener,
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH)).show();
