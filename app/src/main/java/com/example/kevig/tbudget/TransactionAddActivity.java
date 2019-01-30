@@ -23,7 +23,7 @@ import android.widget.ToggleButton;
 public class TransactionAddActivity extends AppCompatActivity {
 
     private static final int addItem_RC = 2;        // Request code for Add Item activities
-    private List<Item> transactionItems;            // Transaction Items List
+    private List<Item> transactionItems;     // Transaction Items List
     private AdapterTransactionItems tItemsAdapter;  // Data to view's adapter
     private boolean transactionType = false;        // false=Off/Income | true=On/Expenditure
     private TextView transactionDateView;           // Transaction Date text component
@@ -39,7 +39,7 @@ public class TransactionAddActivity extends AppCompatActivity {
 
         // Initialise Attributes
         this.transactionItems = new ArrayList<>();
-        this.addTestDataItems(); // Add Test Values
+        //this.addTestDataItems(); // Add Test Values
 
         // Transaction Items View Component
         RecyclerView tItemsView = findViewById(R.id.transactionItems_View);
@@ -140,8 +140,9 @@ public class TransactionAddActivity extends AppCompatActivity {
      * @param transaction Transaction Object
      * @return Boolean
      */
-    private boolean isValidTransaction(@SuppressWarnings("UnusedParameters") Transaction transaction) { //TODO: Remove Unused Suppression
-        return true;
+    private boolean isValidTransaction(Transaction transaction) {
+        return !transaction.getDate().equals("Transaction Date")
+                && transaction.getItemsCount() >= 1;
     }
 
     /**

@@ -16,8 +16,11 @@ import java.util.List;
 public class TransactionViewActivity extends AppCompatActivity {
 
     private static final int addTransaction_RC = 1;  // Request code for Add Transaction activities
-    private List<Transaction> transactions;          // Transactions List
+    private List<Transaction> transactionsFull;
     private AdapterTransactions transactionsAdapter; // Transactions recycler view adapter
+
+    private boolean incomeChecked = false;
+    private boolean expeditureChecked = false;
 
     /**
      * Activity Initialisation
@@ -29,13 +32,13 @@ public class TransactionViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transaction_view);
 
         // Initialise Attributes
-        this.transactions = new ArrayList<>();
-        this.addTestDataItems();
+        this.transactionsFull = new ArrayList<>();
+        //this.addTestDataItems();
 
         // Setup components
         // Transaction RecyclerView Component
         RecyclerView transactionsView = findViewById(R.id.transactions_View);
-        transactionsAdapter = new AdapterTransactions(this.transactions);
+        transactionsAdapter = new AdapterTransactions(new ArrayList<Transaction>());
 
         RecyclerView.LayoutManager transactionsLayoutManager =
                 new LinearLayoutManager(getApplicationContext());
@@ -68,8 +71,8 @@ public class TransactionViewActivity extends AppCompatActivity {
             Parcelable parcel = data.getParcelableExtra("Transaction");
             Transaction transaction = Parcels.unwrap(parcel);
             if(transaction != null) {
-                this.transactions.add(transaction);
-                this.updateDisplay();
+                this.transactionsFull.add(transaction);
+                this.applyFilter();
             }
         }
     }
@@ -83,15 +86,42 @@ public class TransactionViewActivity extends AppCompatActivity {
         Transaction b = new Transaction("21/01/2018", emptyList, TRANSACTION_TYPE.EXPENDITURE);
         Transaction c = new Transaction("15/02/2019", emptyList, TRANSACTION_TYPE.INCOME);
 
-        this.transactions.add(a);
-        this.transactions.add(b);
-        this.transactions.add(c);
+        this.transactionsFull.add(a);
+        this.transactionsFull.add(b);
+        this.transactionsFull.add(c);
     }
 
     /**
      * Triggers a GUI update
      */
-    private void updateDisplay() {
+    private void applyFilter() {
+        List<Transaction> transactionsDisplay = new ArrayList<>();
+
+        int state = this.getSelectionState();
+        if(state != 0) {
+            for(Transaction t: this.transactionsFull) {
+                if(state == 1 && t.getTotalValue() >= 0) { transactionsDisplay.add(t); }
+                if(state == 2 && t.getTotalValue() <0) { transactionsDisplay.add(t); }
+                if(state == 3) { transactionsDisplay.add(t); }
+            }
+        }
+        this.transactionsAdapter.setDataSet(transactionsDisplay);
         this.transactionsAdapter.notifyDataSetChanged();
+    }
+
+    private int getSelectionState() {
+        // 0 None selected
+        // 1 Income selected
+        // 2 Expenditure selected
+        // 3 Both selected
+        return 3;
+    }
+
+    private void incomeCheckedEventListener() {
+
+    }
+
+    private void expeditureCheckedEventListener() {
+
     }
 }

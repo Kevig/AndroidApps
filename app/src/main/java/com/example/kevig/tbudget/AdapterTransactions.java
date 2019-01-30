@@ -61,7 +61,7 @@ public class AdapterTransactions extends
         Transaction transaction = dataSet.get(position);
 
         String id = "" + transaction.getId();
-        String value = "£" + transaction.getTotalValue();
+        String value = "£" + String.format("%.2f", transaction.getTotalValue());
 
         Objects.requireNonNull(holder).id.setText(id);
         Objects.requireNonNull(holder).date.setText(transaction.getDate());
@@ -76,4 +76,6 @@ public class AdapterTransactions extends
     public int getItemCount() {
         return this.dataSet.size();
     }
+
+    public void setDataSet(List<Transaction> dataSet) { this.dataSet = dataSet; }
 }

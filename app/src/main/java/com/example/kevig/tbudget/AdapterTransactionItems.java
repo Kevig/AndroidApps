@@ -64,7 +64,7 @@ public class AdapterTransactionItems extends
     public void onBindViewHolder(@NonNull TransactionItemsViewHolder holder, int position) {
         Item item = dataSet.get(position);
 
-        String value = "£" + item.getValue();
+        String value = "£" + String.format("%.2f", item.getValue());
         String quantity = item.getQuantity().toString();
 
         holder.name.setText(item.getName());

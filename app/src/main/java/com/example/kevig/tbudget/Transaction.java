@@ -76,4 +76,12 @@ public class Transaction {
         this.totalValue = Math.round(value*100.0d) / 100.0d;
     }
 
+    /**
+     * Returns the number of items linked to this transaction
+     * @return Integer size of Items array
+     */
+    protected int getItemsCount() {
+        return this.items.size();
+    }
+
 }
