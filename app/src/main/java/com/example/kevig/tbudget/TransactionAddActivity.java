@@ -10,24 +10,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CompoundButton;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.parceler.Parcels;
+
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 
 public class TransactionAddActivity extends AppCompatActivity {
 
-    // Request code for Add Item activities
-    private static final int addItem_RC = 2;
-
-    // Transaction Items List
-    private List<Item> transactionItems;
-
-    private AdapterTransactionItems tItemsAdapter;
-
-    // false=Off/Income | true=On/Expenditure
-    private boolean transactionType = false;
+    private static final int addItem_RC = 2;        // Request code for Add Item activities
+    private List<Item> transactionItems;            // Transaction Items List
+    private AdapterTransactionItems tItemsAdapter;  // Data to view's adapter
+    private boolean transactionType = false;        // false=Off/Income | true=On/Expenditure
+    private TextView transactionDateView;           // Transaction Date text component
 
     /**
      * Activity Initialisation
@@ -41,8 +40,6 @@ public class TransactionAddActivity extends AppCompatActivity {
         // Initialise Attributes
         this.transactionItems = new ArrayList<>();
         this.addTestDataItems(); // Add Test Values
-
-        // Setup components
 
         // Transaction Items View Component
         RecyclerView tItemsView = findViewById(R.id.transactionItems_View);
@@ -58,6 +55,10 @@ public class TransactionAddActivity extends AppCompatActivity {
         // Transaction type toggle and event listener
         ToggleButton transactionTypeToggle = findViewById(R.id.transactionType_toggleButton);
         this.transactionTypeToggleEvent(transactionTypeToggle);
+
+        // Transaction Date datePicker components
+        transactionDateView = findViewById(R.id.transactionDate_datePicker);
+        new ComponentDatePicker(TransactionAddActivity.this, transactionDateView);
     }
 
     /**
@@ -78,7 +79,7 @@ public class TransactionAddActivity extends AppCompatActivity {
         Enum<TRANSACTION_TYPE> type =   transactionType ?
                                         TRANSACTION_TYPE.EXPENDITURE : TRANSACTION_TYPE.INCOME;
 
-        Transaction transaction = new Transaction(  this.getDateInputString(),
+        Transaction transaction = new Transaction(  transactionDateView.getText().toString(),
                                                     this.transactionItems,
                                                     type);
 
@@ -132,14 +133,6 @@ public class TransactionAddActivity extends AppCompatActivity {
     }
 
     /**
-     * Return the date input string value
-     * @return String representing a date
-     */
-    private String getDateInputString() {
-        return "11/01/2019";
-    }
-
-    /**
      * Evaluate the validity of a Transaction by testing that its values are not null
      * and meet certain requirements
      * Constrains:  A valid transaction must have at least 1 valid item
@@ -163,4 +156,5 @@ public class TransactionAddActivity extends AppCompatActivity {
             }
         });
     }
+
 }
