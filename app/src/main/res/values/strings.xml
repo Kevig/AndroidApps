@@ -3,8 +3,6 @@
     <string name="balanceDisplayDate_datePicker">Balance Display Date</string>
     <string name="totalBalance_text">£0.00</string>
     <string name="transactionsActivity_button">Transactions</string>
-    <string name="incomeView_checkBox">Income</string>
-    <string name="expenditureView_checkBox">Expenditure</string>
     <string name="addTransaction_button">Add Transaction</string>
     <string name="transactionDate_datePicker">Transaction Date</string>
     <string name="addItemTransaction_button">Add Item</string>
@@ -16,4 +14,5 @@
     <string name="addItem_button">Add Item</string>
     <string name="transactionType_toggleButton_Off">Income</string>
     <string name="transactionType_toggleButton_On">Expenditure</string>
+    <string name="transactionView_toggleButton">None</string>
 </resources>

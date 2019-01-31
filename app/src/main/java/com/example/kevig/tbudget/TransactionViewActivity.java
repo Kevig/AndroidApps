@@ -9,8 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
-
+import android.widget.Button;
 import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,7 @@ public class TransactionViewActivity extends AppCompatActivity {
     private List<Transaction> transactionsFull;
     private AdapterTransactions transactionsAdapter; // Transactions recycler view adapter
 
-    private boolean incomeChecked = false;
-    private boolean expeditureChecked = false;
+    private int viewType = 0;
 
     /**
      * Activity Initialisation
@@ -98,13 +96,11 @@ public class TransactionViewActivity extends AppCompatActivity {
      */
     private void applyFilter() {
         List<Transaction> transactionsDisplay = new ArrayList<>();
-
-        int state = this.getSelectionState();
-        if(state != 0) {
+        if(this.viewType != 0) {
             for(Transaction t: this.transactionsFull) {
-                if(state == 1 && t.getTotalValue() >= 0) { transactionsDisplay.add(t); }
-                if(state == 2 && t.getTotalValue() <0) { transactionsDisplay.add(t); }
-                if(state == 3) { transactionsDisplay.add(t); }
+                if(this.viewType == 1 && t.getTotalValue() >= 0) { transactionsDisplay.add(t); }
+                if(this.viewType == 2 && t.getTotalValue() <0) { transactionsDisplay.add(t); }
+                if(this.viewType == 3) { transactionsDisplay.add(t); }
             }
         }
         this.transactionsAdapter.setDataSet(transactionsDisplay);
@@ -112,37 +108,20 @@ public class TransactionViewActivity extends AppCompatActivity {
     }
 
     /**
-     * Determine view state based on income and expenditure check boxes
-     * @return Integer representing one of the four possible states
-     */
-    private int getSelectionState() {
-        int value;
-
-        if(this.incomeChecked && this.expeditureChecked) { value = 3; }
-        else if(!this.incomeChecked && this.expeditureChecked) { value = 2; }
-        else if(this.incomeChecked) { value = 1; }
-        else { value = 0; }
-
-        return value;
-    }
-
-
-    /**
-     * Called on an onClick check box event, determines view and sets related boolean to match
+     * Called on an onClick event, determines view and sets related int attribute to state value
      * Calls applyFilter to trigger a display update
-     * @param view Checkbox object triggering the onClick call
+     * @param view Button object triggering the onClick call
      */
-    protected void onClickCheckBox(View view) {
-        boolean isChecked = ((CheckBox) view).isChecked();
+    protected void onClickToggleView(View view) {
+        this.viewType++;
+        if(this.viewType == 4) { this.viewType = 0; }
 
-        switch(view.getId()) {
-            case R.id.incomeView_checkBox:
-                this.incomeChecked = isChecked;
-                break;
-
-            case R.id.expenditureView_checkBox:
-                this.expeditureChecked = isChecked;
-                break;
+        Button btn = (Button) view;
+        switch(this.viewType) {
+            case 0: btn.setText("None"); break;
+            case 1: btn.setText("Income"); break;
+            case 2: btn.setText("Expenditure"); break;
+            case 3: btn.setText("All"); break;
         }
         this.applyFilter();
     }
