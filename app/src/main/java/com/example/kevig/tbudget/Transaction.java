@@ -18,6 +18,7 @@ public class Transaction {
     public List<Item> items;
     public Double totalValue;
     public Enum<TRANSACTION_TYPE> type;
+    public String name;
 
     public Transaction() { } // Empty constructor for Parceler
 
@@ -27,12 +28,13 @@ public class Transaction {
      * @param itemList A List array of Item objects
      * @param aType TRANSACTION_TYPE enum representing a Transaction type (Income or Expenditure)
      */
-    Transaction(String aDate, List<Item> itemList, Enum<TRANSACTION_TYPE> aType) {
+    Transaction(String aDate, List<Item> itemList, Enum<TRANSACTION_TYPE> aType, String aName) {
         idCounter++;
         this.id = idCounter;
         this.date = aDate;
         this.items = itemList;
         this.type = aType;
+        this.name = aName;
         this.updateTotalValue();
     }
 
@@ -48,9 +50,13 @@ public class Transaction {
         return this.date;
     }
 
-    protected void setDate(String aDate) {
-        this.date = aDate;
+    public String getName() {
+        return this.name;
     }
+
+    //protected void setDate(String aDate) {
+    //    this.date = aDate;
+    //}
 
     /**
      * Returns the total value of this transaction as a positive if Income, Negative if expenditure
@@ -69,11 +75,11 @@ public class Transaction {
      * and rounded to 2 decimal places.
      */
     private void updateTotalValue() {
-        Double value = 0.00d;
+        this.totalValue = 0d;
         for(Item i : this.items) {
-            value += (i.getValue() * i.getQuantity());
+            this.totalValue += (i.getValue() * i.getQuantity());
         }
-        this.totalValue = Math.round(value*100.0d) / 100.0d;
+        this.totalValue = Math.round(this.totalValue*100.0d) / 100.0d;
     }
 
     /**

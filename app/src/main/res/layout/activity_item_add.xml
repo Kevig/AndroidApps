@@ -6,35 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ItemAddActivity">
 
-    <TextView
-        android:id="@+id/itemTotalValue_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="64dp"
-        android:text="@string/itemTotalValue_text"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/itemName_inputText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="64dp"
         android:ems="10"
+        android:hint="@string/itemName_inputText"
         android:inputType="text"
-        android:text="@string/itemName_inputText"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemTotalValue_text" />
+        app:layout_constraintTop_toBottomOf="@+id/activityHeader_addItem" />
 
     <EditText
         android:id="@+id/valuePerItem_inputDecimal"
@@ -44,8 +30,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
         android:ems="10"
+        android:hint="@string/valuePerItem_inputDecimal"
         android:inputType="numberDecimal"
-        android:text="@string/valuePerItem_inputDecimal"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,8 +45,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
         android:ems="10"
+        android:hint="@string/itemQuantity_inputNumber"
         android:inputType="number"
-        android:text="@string/itemQuantity_inputNumber"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,4 +64,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/activityHeader_addItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="Add Item"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityHeader_addItem" />
 </android.support.constraint.ConstraintLayout>

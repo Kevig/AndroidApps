@@ -7,7 +7,6 @@
     <string name="transactionDate_datePicker">Transaction Date</string>
     <string name="addItemTransaction_button">Add Item</string>
     <string name="completeTransaction_button">Complete Transaction</string>
-    <string name="itemTotalValue_text">£0.00</string>
     <string name="itemName_inputText">Item Name</string>
     <string name="valuePerItem_inputDecimal">Value Per Item</string>
     <string name="itemQuantity_inputNumber">Quantity</string>
@@ -15,4 +14,5 @@
     <string name="transactionType_toggleButton_Off">Income</string>
     <string name="transactionType_toggleButton_On">Expenditure</string>
     <string name="transactionView_toggleButton">None</string>
+    <string name="home_button">Home</string>
 </resources>

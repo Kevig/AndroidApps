@@ -23,7 +23,7 @@ import android.widget.ToggleButton;
 public class TransactionAddActivity extends AppCompatActivity {
 
     private static final int addItem_RC = 2;        // Request code for Add Item activities
-    private List<Item> transactionItems;     // Transaction Items List
+    private List<Item> transactionItems;            // Transaction Items List
     private AdapterTransactionItems tItemsAdapter;  // Data to view's adapter
     private boolean transactionType = false;        // false=Off/Income | true=On/Expenditure
     private TextView transactionDateView;           // Transaction Date text component
@@ -39,7 +39,6 @@ public class TransactionAddActivity extends AppCompatActivity {
 
         // Initialise Attributes
         this.transactionItems = new ArrayList<>();
-        //this.addTestDataItems(); // Add Test Values
 
         // Transaction Items View Component
         RecyclerView tItemsView = findViewById(R.id.transactionItems_View);
@@ -76,12 +75,15 @@ public class TransactionAddActivity extends AppCompatActivity {
      */
     protected void onCompleteTransaction(@SuppressWarnings("UnusedParameters") View view) {
 
+        TextView transactionName = findViewById(R.id.transactionName_inputText);
+
         Enum<TRANSACTION_TYPE> type =   transactionType ?
                                         TRANSACTION_TYPE.EXPENDITURE : TRANSACTION_TYPE.INCOME;
 
         Transaction transaction = new Transaction(  transactionDateView.getText().toString(),
                                                     this.transactionItems,
-                                                    type);
+                                                    type,
+                                                    transactionName.getText().toString());
 
         if(isValidTransaction(transaction)) {
             Intent intent = new Intent();
@@ -110,19 +112,6 @@ public class TransactionAddActivity extends AppCompatActivity {
                 this.updateDisplay();
             }
         }
-    }
-
-    /**
-     * Test Data for Item display
-     */
-    private void addTestDataItems() {
-        Item a = new Item("Test1", 0.27d, 1);
-        Item b = new Item("Test2", 9.99d, 5);
-        Item c = new Item("Test3", 7.82d, 2);
-
-        this.transactionItems.add(a);
-        this.transactionItems.add(b);
-        this.transactionItems.add(c);
     }
 
     /**

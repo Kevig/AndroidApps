@@ -19,7 +19,6 @@ public class TransactionViewActivity extends AppCompatActivity {
     private static final int addTransaction_RC = 1;  // Request code for Add Transaction activities
     private List<Transaction> transactionsFull;
     private AdapterTransactions transactionsAdapter; // Transactions recycler view adapter
-
     private int viewType = 0;
 
     /**
@@ -33,7 +32,6 @@ public class TransactionViewActivity extends AppCompatActivity {
 
         // Initialise Attributes
         this.transactionsFull = new ArrayList<>();
-        //this.addTestDataItems();
 
         // Setup components
         // Transaction RecyclerView Component
@@ -78,30 +76,15 @@ public class TransactionViewActivity extends AppCompatActivity {
     }
 
     /**
-     * Test data for display testing
-     */
-    private void addTestDataItems() {
-        List<Item> emptyList = new ArrayList<>();
-        Transaction a = new Transaction("11/01/2019", emptyList, TRANSACTION_TYPE.INCOME);
-        Transaction b = new Transaction("21/01/2018", emptyList, TRANSACTION_TYPE.EXPENDITURE);
-        Transaction c = new Transaction("15/02/2019", emptyList, TRANSACTION_TYPE.INCOME);
-
-        this.transactionsFull.add(a);
-        this.transactionsFull.add(b);
-        this.transactionsFull.add(c);
-    }
-
-    /**
-     * Triggers a GUI update
+     * Applies view filter to display data and triggers a GUI update
      */
     private void applyFilter() {
         List<Transaction> transactionsDisplay = new ArrayList<>();
-        if(this.viewType != 0) {
-            for(Transaction t: this.transactionsFull) {
-                if(this.viewType == 1 && t.getTotalValue() >= 0) { transactionsDisplay.add(t); }
-                if(this.viewType == 2 && t.getTotalValue() <0) { transactionsDisplay.add(t); }
-                if(this.viewType == 3) { transactionsDisplay.add(t); }
-            }
+        for(Transaction t: this.transactionsFull) {
+            if(this.viewType == 0) { transactionsDisplay.add(t); }
+            if(this.viewType == 1 && t.getTotalValue() >= 0) { transactionsDisplay.add(t); }
+            if(this.viewType == 2 && t.getTotalValue() <  0) { transactionsDisplay.add(t); }
+
         }
         this.transactionsAdapter.setDataSet(transactionsDisplay);
         this.transactionsAdapter.notifyDataSetChanged();
@@ -114,16 +97,24 @@ public class TransactionViewActivity extends AppCompatActivity {
      */
     protected void onClickToggleView(View view) {
         this.viewType++;
-        if(this.viewType == 4) { this.viewType = 0; }
+        if(this.viewType == 3) { this.viewType = 0; }
 
-        Button btn = (Button) view;
-        switch(this.viewType) {
-            case 0: btn.setText("None"); break;
-            case 1: btn.setText("Income"); break;
-            case 2: btn.setText("Expenditure"); break;
-            case 3: btn.setText("All"); break;
-        }
+        String value = "All";
+        if(this.viewType == 1) { value = "Income"; }
+        if(this.viewType == 2) { value = "Expenditure"; }
+
+        ((Button) view).setText(value);
         this.applyFilter();
+    }
+
+    /**
+     * Called on an onClick event of Home button, returns to Home screen
+     * @param view Button object triggering the onClick call
+     */
+    protected void onClickHomeButton(@SuppressWarnings("UnusedParameters") View view) {
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
 }

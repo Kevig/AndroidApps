@@ -7,6 +7,8 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int viewTransactions_RC = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void onViewTransactions(View view) {
         Intent intent = new Intent(this, TransactionViewActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, viewTransactions_RC);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class AdapterTransactions extends
@@ -14,8 +15,8 @@ public class AdapterTransactions extends
 
     private List<Transaction> dataSet;
 
-    public static class TransactionViewHolder extends RecyclerView.ViewHolder {
-        public TextView id, date, value; // Layout view attributes
+    static class TransactionViewHolder extends RecyclerView.ViewHolder {
+        TextView id, date, value, name; // Layout view attributes
 
         /**
          * Constructor
@@ -26,6 +27,7 @@ public class AdapterTransactions extends
             id = view.findViewById(R.id.id);
             date = view.findViewById(R.id.date);
             value = view.findViewById(R.id.value);
+            name = view.findViewById(R.id.name);
         }
     }
 
@@ -61,11 +63,13 @@ public class AdapterTransactions extends
         Transaction transaction = dataSet.get(position);
 
         String id = "" + transaction.getId();
-        String value = "£" + String.format("%.2f", transaction.getTotalValue());
+        String value = "£" + String.format( Locale.getDefault(),"%.2f",
+                                            transaction.getTotalValue());
 
         Objects.requireNonNull(holder).id.setText(id);
         Objects.requireNonNull(holder).date.setText(transaction.getDate());
         Objects.requireNonNull(holder).value.setText(value);
+        Objects.requireNonNull(holder).name.setText(transaction.getName());
     }
 
     /**
@@ -77,5 +81,5 @@ public class AdapterTransactions extends
         return this.dataSet.size();
     }
 
-    public void setDataSet(List<Transaction> dataSet) { this.dataSet = dataSet; }
+    void setDataSet(List<Transaction> dataSet) { this.dataSet = dataSet; }
 }
